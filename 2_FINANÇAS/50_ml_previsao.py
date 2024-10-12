@@ -25,7 +25,7 @@ dataset = pd.read_csv('acoes.csv')
 
 
 dataset['Date'] = pd.to_datetime(dataset['Date'], format='%Y-%m-%d')
-
+#adsadas
 
 dataset.set_index('Date', inplace=True)
 
