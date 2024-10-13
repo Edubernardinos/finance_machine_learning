@@ -17,11 +17,12 @@ from sklearn.metrics import mean_absolute_error
 from scipy.special import jv
 import matplotlib.image as mpimg
 
+"""PREVISÃO DE VALORES DAS AÇÕES DA MAGAZINE LUIZA"""
 
-plt.style.use('C:\\Users\\erbernardino\\Desktop\\Prog\\EXPERT_ACADEMY\\pitayasmoothie-dark.mplstyle')
+plt.style.use('C:\\Users\\Edu\Desktop\Estudo\\11-ML-DEFINITIVO\EXPERT_ACADEMY\\2_Economia_Ml\\pitayasmoothie-dark.mplstyle')
 
 
-dataset = pd.read_csv('acoes.csv')
+dataset = pd.read_csv('database//acoes.csv')
 
 
 dataset['Date'] = pd.to_datetime(dataset['Date'], format='%Y-%m-%d')
@@ -90,7 +91,7 @@ mae_prophet = mean_absolute_error(teste, previsoes_prophet_test)
 
 
 """-------------------------------VALIDAÇÃO DE MODELOS E PLOT --------------------------------"""
-mae_img = mpimg.imread('C:\\Users\\erbernardino\\Desktop\\Prog\\EXPERT_ACADEMY\\mean-absolute-error-formula.png')
+mae_img = mpimg.imread('C:\\Users\\Edu\Desktop\\Estudo\\11-ML-DEFINITIVO\EXPERT_ACADEMY\\2_Economia_Ml\\MAE-3418839582.png')
 
 
 plot_plotly(modelo_prophet,previsoes_prophet)
@@ -112,15 +113,18 @@ plt.plot(previsoes_arima, label='Previsões - Modelo não Robusto', color='grey'
 plt.plot(previsoes_prophet['ds'][2000:2800], previsoes_prophet['yhat'][2000:2800], label='Previsões - Modelo Robusto', color='red')
 
 plt.xticks(rotation=45)
-plt.grid()
+plt.grid('on')
 plt.legend()
 
 
-ax_img = plt.axes([0.7, 0.5, 0.2, 0.2])  # Ajuste left (0.4) para mover a imagem para a esquerda e bottom (0.5) para ajustar a altura
+ax_img = plt.axes([0.7, 0.5, 0.2, 0.2]) 
+ax_img.axis('off')
 ax_img.imshow(mae_img)
-ax_img.axis('off') 
 
 
-plt.text(350, 350, f' {mae_prophet:.2f}', fontsize=10, color='white', ha='center', va='center')
-
+plt.text(150, 150, f' {mae_prophet:.2f}', fontsize=10, color='white', ha='center', va='center')
 plt.show()
+
+
+
+

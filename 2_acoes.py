@@ -23,7 +23,7 @@ for acao in acoes:
 
 
 
-csv_file = 'acoes.csv'
+csv_file = 'database//acoes.csv'
 
 if not os.path.exists(csv_file):
     acoes_df.to_csv(csv_file)

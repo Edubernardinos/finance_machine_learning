@@ -11,7 +11,7 @@ import os
 
 
 azul_df = yf.download('AZUL4.SA', start='2015-01-01')
-csv_file = 'azul4.csv'
+csv_file = 'database//azul4.csv'
 print(azul_df.head())
 
 if not os.path.exists(csv_file):
