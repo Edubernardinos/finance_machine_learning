@@ -13,7 +13,7 @@ from sklearn.impute import SimpleImputer
 from sklearn.preprocessing import StandardScaler,OneHotEncoder
 from sklearn.compose import ColumnTransformer
 from sklearn.base import BaseEstimator, TransformerMixin
-
+from sklearn.model_selection import train_test_split
 
 """CLASSIFICAR EMPRESAS PARA INVESTIMENTO A LONGO PRAZO"""
 dataset = pd.read_excel('database//BD Completo.xlsx')
@@ -121,28 +121,28 @@ sns.countplot(x='CATEGORIA', data=dataset,palette='Set1')
 plt.xticks()
 
 
-"""class PreprocessPipeline(BaseEstimator, TransformerMixin):
+
+
+class PreprocessPipeline(BaseEstimator, TransformerMixin):
     def __init__(self, num_attribs, cat_attribs, drop_na=False):
         self.num_attribs = num_attribs
         self.cat_attribs = cat_attribs
         self.drop_na = drop_na
         
-        # pipeline numérico
+        #  numérico
         self.num_pipeline = Pipeline([
             ('imputer', SimpleImputer(strategy='mean')),
         ])
         
-        # pipeline categórico
+        # categórico
         self.cat_pipeline = Pipeline([
             ('imputer', SimpleImputer(strategy='most_frequent')),  # Imputação com a moda
             ('cat_encoder', OneHotEncoder(sparse_output=False)),  
         ])
 
     def fit(self, dataset, y=None):
-        # Ajustar o pipeline numérico
         self.num_pipeline.fit(dataset[self.num_attribs])
         
-        # Ajustar o pipeline categórico apenas se drop_na for False
         if not self.drop_na:
             self.cat_pipeline.fit(dataset[self.cat_attribs])
 
@@ -153,12 +153,10 @@ plt.xticks()
         num_data = self.num_pipeline.transform(dataset[self.num_attribs])
         
         if self.drop_na:
-            # Se drop_na for True, removemos as linhas com NaN nas colunas categóricas
             dataset = dataset.dropna(subset=self.cat_attribs)
             cat_data = pd.DataFrame()  # Placeholder para manter a estrutura do código
 
         else:
-            # Transformar as colunas categóricas
             cat_data = self.cat_pipeline.transform(dataset[self.cat_attribs])
         
 
@@ -166,4 +164,5 @@ plt.xticks()
                           pd.DataFrame(cat_data, index=dataset.index)], axis=1)
     
 
-"""
+
+
