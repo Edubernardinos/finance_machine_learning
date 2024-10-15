@@ -1,21 +1,4 @@
-import pandas as pd
-import numpy as np
-import matplotlib.pyplot as plt
-import seaborn as sns
-import plotly.express as px
-from datetime import datetime
-from prophet import Prophet
-from prophet.plot import plot_components_plotly
-from pandas_datareader import data
-import yfinance as yf
-import os
-from pmdarima import auto_arima
-from statsmodels.tsa.seasonal import seasonal_decompose
-from statsmodels.tsa.seasonal import STL
-from statsmodels.graphics.tsaplots import plot_acf
-from sklearn.metrics import mean_absolute_error
-from scipy.special import jv
-import matplotlib.image as mpimg
+c
 
 """PREVISÃO DE VALORES DAS AÇÕES DA MAGAZINE LUIZA"""
 
