@@ -122,8 +122,8 @@ plt.xticks()
 
 
 
-
-class PreprocessPipeline(BaseEstimator, TransformerMixin):
+#guardar para depois pipeline
+"""class PreprocessPipeline(BaseEstimator, TransformerMixin):
     def __init__(self, num_attribs, cat_attribs, drop_na=False):
         self.num_attribs = num_attribs
         self.cat_attribs = cat_attribs
@@ -163,6 +163,6 @@ class PreprocessPipeline(BaseEstimator, TransformerMixin):
         return pd.concat([pd.DataFrame(num_data, index=dataset.index), 
                           pd.DataFrame(cat_data, index=dataset.index)], axis=1)
     
-
+"""
 
 

@@ -8,10 +8,10 @@ from prophet import Prophet
 
 """PREVISÃO DE VALORES DAS AÇÕES DA MAGAZINE LUIZA"""
 
-plt.style.use('C:\\Users\\Edu\Desktop\Estudo\\11-ML-DEFINITIVO\EXPERT_ACADEMY\\2_Economia_Ml\\pitayasmoothie-dark.mplstyle')
+plt.style.use('C:/Users/Edu/Desktop/Estudo/11-ML-DEFINITIVO/EXPERT_ACADEMY/2_Economia_Ml/python_codes/pitayasmoothie-dark.mplstyle')
 
 
-dataset = pd.read_csv('database//acoes.csv')
+dataset = pd.read_csv('database/acoes.csv')
 
 
 dataset['Date'] = pd.to_datetime(dataset['Date'], format='%Y-%m-%d')
@@ -80,7 +80,7 @@ mae_prophet = mean_absolute_error(teste, previsoes_prophet_test)
 
 
 """-------------------------------VALIDAÇÃO DE MODELOS E PLOT --------------------------------"""
-mae_img = mpimg.imread('C:\\Users\\Edu\Desktop\\Estudo\\11-ML-DEFINITIVO\EXPERT_ACADEMY\\2_Economia_Ml\\MAE-3418839582.png')
+mae_img = mpimg.imread('C:/Users/Edu/Desktop/Estudo/11-ML-DEFINITIVO/EXPERT_ACADEMY/2_Economia_Ml/python_codes/mean_absolute_error.png')
 
 
 plot_plotly(modelo_prophet,previsoes_prophet)
