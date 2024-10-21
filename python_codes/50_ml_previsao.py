@@ -1,4 +1,10 @@
-c
+import pandas as pd
+import matplotlib.pyplot as plt
+import matplotlib.image as mpimg
+from sklearn.metrics import mean_absolute_error
+from pmdarima import auto_arima
+from prophet import Prophet
+
 
 """PREVISÃO DE VALORES DAS AÇÕES DA MAGAZINE LUIZA"""
 
