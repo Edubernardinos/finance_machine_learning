@@ -10,7 +10,7 @@ import os
 import matplotlib.image as mpimg
 from sklearn.pipeline import Pipeline
 from sklearn.impute import SimpleImputer
-from sklearn.preprocessing import StandardScaler,OneHotEncoder
+from sklearn.preprocessing import StandardScaler,OneHotEncoder,MinMaxScaler
 from sklearn.compose import ColumnTransformer
 from sklearn.base import BaseEstimator, TransformerMixin
 from sklearn.model_selection import train_test_split
@@ -42,8 +42,12 @@ num_attribs = dataset.select_dtypes(include=['number']).columns.tolist()
 #IMPUTAR MÉDIA E DROPNA- DEPOIS
 dataset[num_attribs] = dataset[num_attribs].fillna(dataset[num_attribs].mean(),axis=0)
 dataset.isnull().sum()
-dataset = dataset.dropna()
+
 del dataset['MAJORITAR.']
+
+dataset = dataset.dropna()
+dataset = dataset.reset_index(drop=True)
+
 
 
 #LIMPAR SEGMENTOS DA COLUNA SEGMENTO
@@ -101,7 +105,7 @@ def corrige_segmentos(texto):
     return segmento
 dataset['SEGMENTO'] = dataset['SEGMENTO'].apply(corrige_segmentos)
 
-#LIMPAR SEGMENTOS DA COLUNA CATEGORIA
+#LIMPAR SEGMENTOS DA COLUNA 'CATEGORIA'
 unique_segments, counts = np.unique(dataset['CATEGORIA'],return_counts=True)
 
 def corrige_categoria(texto):
@@ -114,6 +118,8 @@ def corrige_categoria(texto):
     return categoria
 
 dataset['CATEGORIA'] = dataset['CATEGORIA'].apply(corrige_categoria)
+
+np.unique(dataset['CATEGORIA'],return_counts=True)
 
 
 plt.figure(figsize=(10,10))
@@ -164,5 +170,72 @@ plt.xticks()
                           pd.DataFrame(cat_data, index=dataset.index)], axis=1)
     
 """
+
+
+
+
+#DESCRIBE
+dataset.describe()
+dataset[dataset['LPA DESCONCTADO'] > 160] 
+
+
+
+#HISTOGRAMA
+fig = plt.figure(figsize=(15,20))
+ax = fig.gca()
+dataset.hist(ax=ax);
+
+
+
+#CORRELAÇÃO e DROPS
+correlacao = dataset.corr(numeric_only=True)
+
+plt.figure(figsize=(20,50))
+sns.heatmap(correlacao,annot=True,cbar=False)
+
+
+dataset.columns
+dataset = dataset.drop(['REC. LIQUIDA','CAIXA'],axis=1)
+
+
+dataset = dataset.drop(['DIVIDA BRUTA','LPA','CAIXA.1'],axis=1)
+correlacao = dataset.corr(numeric_only=True)
+plt.figure(figsize=(20,50))
+
+
+dataset = dataset.drop(['AT. CIRCULANTE','LIQ. CORRENTE'],axis=1)
+correlacao = dataset.corr(numeric_only=True)
+
+plt.figure(figsize=(20,50))
+sns.heatmap(correlacao[correlacao.abs() > 0.5], annot=True, cmap='coolwarm', cbar=False)
+
+
+
+
+#ONE HOT ENCODER E VARIAVEIS DUMMIES
+dataset_original = dataset.copy()
+
+cat_attribs = dataset.select_dtypes(include=['object']).columns.tolist()
+num_attribs = dataset.select_dtypes(include=['number']).columns.tolist()
+
+y = dataset['SITUAÇÃO'].values
+empresas = dataset['EMPRESA']
+X_cat = dataset[['SEGMENTO','CATEGORIA']]
+
+encoder = OneHotEncoder(sparse_output=False)
+X_cat = encoder.fit_transform(X_cat)
+
+#TRANSFORMAÇÃO EM DATAFRAME PANDAS
+X_cat = pd.DataFrame(X_cat)
+
+dataset = dataset.drop(['SEGMENTO','CATEGORIA','SITUAÇÃO','EMPRESA'],axis=1)
+
+
+#CONCATENAÇÃO DE DATAFRAMES
+dataset.index
+X_cat.index
+
+
+dataset = pd.concat([dataset,X_cat],axis=1)
 
 
