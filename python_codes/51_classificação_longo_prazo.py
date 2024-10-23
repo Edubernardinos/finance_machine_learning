@@ -19,6 +19,7 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import StratifiedKFold,RepeatedStratifiedKFold,KFold,RepeatedKFold,train_test_split,GridSearchCV
 from sklearn.metrics import accuracy_score,classification_report,confusion_matrix
 import pickle as pkl
+import joblib
 
 """CLASSIFICAR EMPRESAS PARA INVESTIMENTO A LONGO PRAZO"""
 dataset = pd.read_excel('database//BD Completo.xlsx')
@@ -250,7 +251,7 @@ dataset = pd.concat([dataset,X_cat],axis=1)
 scaler = MinMaxScaler()
 dataset.columns = dataset.columns.astype(str)
 dataset_norma = scaler.fit_transform(dataset)
-
+ 
 X = dataset_norma.copy()
 
 
@@ -275,7 +276,6 @@ resultados_random_forest_estratificado.append(scores)
 rkfold = RepeatedKFold(n_splits=10,n_repeats=30,random_state=42)
 scores = cross_val_score(rnd_class, X, y, cv=rkfold)
 resultados_random_forest.append(scores)
-
 print(f"Desempenho Médio Random Forest Não-Estratificado: {np.mean(scores)}")
 #-----------------------------------------------------------------------------------------------
 #REDE NEURAL
@@ -364,3 +364,7 @@ previsoes = voting_clf.predict(X_test)
 accuracy_score(y_test,previsoes)
 #OVERFITTING
 
+#MODEL DUMP
+joblib.dump(my_model, "my_model.pkl") # DIFF
+#...
+my_model_loaded = joblib.load("my_model.pkl") # 
