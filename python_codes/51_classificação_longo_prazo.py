@@ -20,6 +20,10 @@ from sklearn.model_selection import StratifiedKFold,RepeatedStratifiedKFold,KFol
 from sklearn.metrics import accuracy_score,classification_report,confusion_matrix
 import pickle as pkl
 import joblib
+import warnings
+
+
+warnings.filterwarnings('ignore')
 
 """CLASSIFICAR EMPRESAS PARA INVESTIMENTO A LONGO PRAZO"""
 dataset = pd.read_excel('database//BD Completo.xlsx')
@@ -343,7 +347,7 @@ best_score = grid_searcher.best_score_
 random_forest_best = grid_searcher.best_estimator_
 
 
-
+joblib.dump(random_forest_best, "my_model.pkl")
 
 
 #TESTE DE VOTING CLASSIFIER - ENSEMBLE DE MODELOS
@@ -365,6 +369,6 @@ accuracy_score(y_test,previsoes)
 #OVERFITTING
 
 #MODEL DUMP
-joblib.dump(my_model, "my_model.pkl") # DIFF
+ # DIFF
 #...
-my_model_loaded = joblib.load("my_model.pkl") # 
+ # 
