@@ -1,4 +1,4 @@
-#Finance Machine Learning Algorithms and Data Exploration / Visualization
+##Finance Machine Learning Algorithms and Data Exploration / Visualization
 
 Overview
 
